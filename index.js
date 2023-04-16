@@ -4,6 +4,70 @@ const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
 
+// Require Sequelize
+const Sequelize = require('sequelize'); // the ORM
+
+const sequelize = new Sequelize('database', 'user', 'password', {
+	host: 'localhost',
+	dialect: 'sqlite',
+	logging: false,
+	// SQLite only
+	storage: 'database.sqlite',
+});
+
+//define 3 models for timeAlert, thresholdAlert, and connectionAlert
+const TimeAlerts = sequelize.define('timeAlerts', {
+	id: {
+		type: Sequelize.INTEGER,
+		primaryKey: true,
+		autoIncrement: true,
+	  },
+	APIkey: Sequelize.STRING,
+	fieldID: Sequelize.INTEGER,
+	username: Sequelize.STRING,
+	message: Sequelize.STRING,
+	setTime: Sequelize.INTEGER, //time in seconds that user set
+	timeStamp: Sequelize.DOUBLE, //time stamp of when the alert was set or last reminder was sent
+});
+
+const ThresholdAlerts = sequelize.define('thresholdAlerts', {
+	id: {
+		type: Sequelize.INTEGER,
+		primaryKey: true,
+		autoIncrement: true,
+	  },
+	APIkey: Sequelize.STRING,
+	fieldID: Sequelize.INTEGER,
+	username: Sequelize.STRING,
+	thresholdMin: Sequelize.DOUBLE,
+	thresholdMax: Sequelize.DOUBLE,
+	totalValues: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0,
+	}
+	
+});
+
+
+const ConnectionAlerts = sequelize.define('connectionAlerts', {
+	id: {
+		type: Sequelize.INTEGER,
+		primaryKey: true,
+		autoIncrement: true,
+	  },
+	APIkey: Sequelize.STRING,
+	fieldID: Sequelize.INTEGER,
+	username: Sequelize.STRING,
+	message: Sequelize.STRING,
+	setTime: Sequelize.INTEGER, //time in seconds that user set
+	timeStamp: Sequelize.DOUBLE, //time stamp of when the alert was set or last reminder was sent
+	totalValues: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0,
+	}
+});
+
+
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.commands = new Collection();

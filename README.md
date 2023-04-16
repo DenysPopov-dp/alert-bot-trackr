@@ -1,2 +1,6 @@
-# alert-bot-trackr
- 
+-showAlerts
+-deleteAlerts
+-registerAlerts
+    - time-based alert (basically alarm clock)
+    - threshold-based alert
+    - connection alert

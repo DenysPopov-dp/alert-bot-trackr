@@ -4,8 +4,7 @@
 
 
 const { SlashCommandBuilder } = require('discord.js');
-const { ThresholdAlerts } = require ('../../db/database.js');
-const { addAPItoDB } = require ('../../utils/addAPItoDB.js');
+const { ThresholdAlerts, APIs } = require ('../../db/database.js');
 
 
 module.exports = {
@@ -35,6 +34,10 @@ module.exports = {
         const thresholdMin = interaction.options.getNumber('threshold-min');
         const thresholdMax = interaction.options.getNumber('threshold-max');
 
+        const api = await APIs.findOrCreate({
+            where: {api:apiKey},
+            defaults: { api:apiKey}
+        });
 
         try{
             const thresholdAlert = await ThresholdAlerts.create({

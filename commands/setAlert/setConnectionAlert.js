@@ -4,8 +4,7 @@
 
 
 const { SlashCommandBuilder } = require('discord.js');
-const { ConnectionAlerts } = require ('../../db/database.js');
-const { addAPItoDB } = require ('../../utils/addAPItoDB.js');
+const { ConnectionAlerts, APIs } = require ('../../db/database.js');
 
 
 module.exports = {
@@ -29,6 +28,11 @@ module.exports = {
 		const apiKey = interaction.options.getString('api');
         const fieldID = interaction.options.getInteger('field-id');
         const time = interaction.options.getNumber('time');
+
+        const api = await APIs.findOrCreate({
+            where: {api:apiKey},
+            defaults: { api:apiKey}
+        });
 
         try{
             const connectionAlert = await ConnectionAlerts.create({

@@ -42,3 +42,9 @@ for (const file of eventFiles) {
 
 // Log in to Discord with your client's token
 client.login(token);
+
+// Define the interval time (15 seconds)
+const intervalTime = 5000;
+
+// Set the interval to execute the function every 15 seconds
+setInterval( ()=>{console.log("interval trigger uuwuu")}, intervalTime);

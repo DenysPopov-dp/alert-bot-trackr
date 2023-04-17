@@ -10,16 +10,16 @@ const sequelize = new Sequelize('database', 'user', 'password', {
 });
 
 
-// const APIs = sequelize.define('APIs', {
-// 	api: {
-// 	  type: Sequelize.STRING,
-// 	  primaryKey: true,
-// 	},
-//   });
+const APIs = sequelize.define('APIs', {
+	api: {
+	  type: Sequelize.STRING,
+	  primaryKey: true,
+	},
+  });
 
 
 //define 3 models for timeAlert, thresholdAlert, and connectionAlert
-const TimeAlerts = sequelize.define('timeAlerts', {
+const TimeAlerts = sequelize.define('TimeAlerts', {
 	id: {
 		type: Sequelize.INTEGER,
 		primaryKey: true,
@@ -31,21 +31,21 @@ const TimeAlerts = sequelize.define('timeAlerts', {
 	timeStamp: Sequelize.DOUBLE, //time stamp of when the alert was set or last reminder was sent
 });
 
-const ThresholdAlerts = sequelize.define('thresholdAlerts', {
+const ThresholdAlerts = sequelize.define('ThresholdAlerts', {
 	id: {
 		type: Sequelize.INTEGER,
 		primaryKey: true,
 		autoIncrement: true,
 	},
-	apiKey: {
-		type: Sequelize.STRING,
-		allowNull: false,
-		// references: {
-		//   model: 'APIs',
-		//   key: 'api',
-		//   onDelete: 'CASCADE',
-		// },
-	},
+	// apiKey: {
+	// 	type: Sequelize.STRING,
+	// 	allowNull: false,
+	// 	// references: {
+	// 	//   model: 'APIs',
+	// 	//   key: 'api',
+	// 	//   onDelete: 'CASCADE',
+	// 	// },
+	// },
 	fieldID: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
@@ -70,21 +70,21 @@ const ThresholdAlerts = sequelize.define('thresholdAlerts', {
 });
 
 
-const ConnectionAlerts = sequelize.define('connectionAlerts', {
+const ConnectionAlerts = sequelize.define('ConnectionAlerts', {
 	id: {
 		type: Sequelize.INTEGER,
 		primaryKey: true,
 		autoIncrement: true,
 	},
-	apiKey: {
-		type: Sequelize.STRING,
-		allowNull: false,
-		// references: {
-		//   model: 'APIs',
-		//   key: 'api',
-		//   onDelete: 'CASCADE',
-		// },
-	},
+	// apiKey: {
+	// 	type: Sequelize.STRING,
+	// 	allowNull: false,
+	// 	// references: {
+	// 	//   model: 'APIs',
+	// 	//   key: 'api',
+	// 	//   onDelete: 'CASCADE',
+	// 	// },
+	// },
 	fieldID: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
@@ -108,5 +108,7 @@ const ConnectionAlerts = sequelize.define('connectionAlerts', {
     ]
 });
 
+APIs.hasOne(ConnectionAlerts, {foreignKey: 'apiKey', sourceKey: 'api', onDelete: 'CASCADE'});
+APIs.hasOne(ThresholdAlerts, {foreignKey: 'apiKey', sourceKey: 'api', onDelete: 'CASCADE'})
 
-module.exports =  {TimeAlerts, ThresholdAlerts, ConnectionAlerts };
+module.exports =  {APIs, TimeAlerts, ThresholdAlerts, ConnectionAlerts };

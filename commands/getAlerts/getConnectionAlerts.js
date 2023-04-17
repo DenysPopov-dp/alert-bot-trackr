@@ -13,7 +13,7 @@ module.exports = {
         {
             output = '';
             for (const connectionAlert of connectionAlerts) {
-                output += `Alert ID: \`${connectionAlert.id}\` | APIkey: \`${connectionAlert.APIkey}\` | FieldID: \`${connectionAlert.fieldID}\` | Username: \`${connectionAlert.username}\` | Time: \`${connectionAlert.setTime}\`\n`;
+                output += `Alert ID: \`${connectionAlert.id}\` | APIkey: \`${connectionAlert.apiKey}\` | FieldID: \`${connectionAlert.fieldID}\` | Username: \`${connectionAlert.username}\` | Time: \`${connectionAlert.setTime}\`\n`;
             }
             return interaction.reply(output);
         }

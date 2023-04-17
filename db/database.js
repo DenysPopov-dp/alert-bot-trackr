@@ -9,6 +9,15 @@ const sequelize = new Sequelize('database', 'user', 'password', {
 	storage: 'database.sqlite',
 });
 
+
+// const APIs = sequelize.define('APIs', {
+// 	api: {
+// 	  type: Sequelize.STRING,
+// 	  primaryKey: true,
+// 	},
+//   });
+
+
 //define 3 models for timeAlert, thresholdAlert, and connectionAlert
 const TimeAlerts = sequelize.define('timeAlerts', {
 	id: {
@@ -27,9 +36,20 @@ const ThresholdAlerts = sequelize.define('thresholdAlerts', {
 		type: Sequelize.INTEGER,
 		primaryKey: true,
 		autoIncrement: true,
-	  },
-	APIkey: Sequelize.STRING,
-	fieldID: Sequelize.INTEGER,
+	},
+	apiKey: {
+		type: Sequelize.STRING,
+		allowNull: false,
+		// references: {
+		//   model: 'APIs',
+		//   key: 'api',
+		//   onDelete: 'CASCADE',
+		// },
+	},
+	fieldID: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
 	username: Sequelize.STRING,
 	thresholdMin: Sequelize.DOUBLE,
 	thresholdMax: Sequelize.DOUBLE,
@@ -39,6 +59,14 @@ const ThresholdAlerts = sequelize.define('thresholdAlerts', {
 		allowNull: false,
 	},
 	
+},
+{
+    indexes: [
+        {
+            unique: true,
+            fields: ['apiKey', 'fieldID']
+        }
+    ]
 });
 
 
@@ -47,9 +75,20 @@ const ConnectionAlerts = sequelize.define('connectionAlerts', {
 		type: Sequelize.INTEGER,
 		primaryKey: true,
 		autoIncrement: true,
-	  },
-	APIkey: Sequelize.STRING, //TODO make both unique
-	fieldID: Sequelize.INTEGER, //TODO make unique and test, so that you can make only one per field
+	},
+	apiKey: {
+		type: Sequelize.STRING,
+		allowNull: false,
+		// references: {
+		//   model: 'APIs',
+		//   key: 'api',
+		//   onDelete: 'CASCADE',
+		// },
+	},
+	fieldID: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
 	username: Sequelize.STRING,
 	setTime: Sequelize.INTEGER, //user-set period of time when values should come in, or time to wait before a device is consedered disconnected
 	timeStamp: Sequelize.DOUBLE, //time stamp of when the alert was set or last reminder was sent
@@ -57,7 +96,17 @@ const ConnectionAlerts = sequelize.define('connectionAlerts', {
 		type: Sequelize.INTEGER,
 		defaultValue: 0,
 		allowNull: false,
-	}
+	},
+	
+},
+{
+    indexes: [
+        {
+            unique: true,
+            fields: ['apiKey', 'fieldID']
+        }
+    ]
 });
 
-module.exports =  { TimeAlerts, ThresholdAlerts, ConnectionAlerts };
+
+module.exports =  {TimeAlerts, ThresholdAlerts, ConnectionAlerts };

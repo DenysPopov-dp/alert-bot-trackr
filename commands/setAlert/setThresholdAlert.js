@@ -5,6 +5,7 @@
 
 const { SlashCommandBuilder } = require('discord.js');
 const { ThresholdAlerts } = require ('../../db/database.js');
+const { addAPItoDB } = require ('../../utils/addAPItoDB.js');
 
 
 module.exports = {
@@ -34,9 +35,10 @@ module.exports = {
         const thresholdMin = interaction.options.getNumber('threshold-min');
         const thresholdMax = interaction.options.getNumber('threshold-max');
 
+
         try{
             const thresholdAlert = await ThresholdAlerts.create({
-                APIkey: apiKey,
+                apiKey: apiKey,
                 fieldID: fieldID,
                 username: interaction.user.username,
                 thresholdMin: thresholdMin,
@@ -49,10 +51,10 @@ module.exports = {
         catch(error)
         {
             if (error.name === 'SequelizeUniqueConstraintError') {
-				return interaction.reply('That alert already exists. Delete previous alert and create a new one.');
+				return interaction.reply(`**Alert with API key: \`${apiKey}\` and field ID: \`${fieldID}\` already exists. Delete previous alert and create a new one.**`);
 			}
             else{
-                return interaction.reply('Something went wrong with adding a threshold alert.');
+                return interaction.reply(`Something went wrong with adding a threshold alert. ${error}`);
             }
         }
 

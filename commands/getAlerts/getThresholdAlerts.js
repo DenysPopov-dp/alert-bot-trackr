@@ -13,7 +13,7 @@ module.exports = {
         {
             output = '';
             for (const thresholdAlert of thresholdAlerts) {
-                output += `Alert ID: \`${thresholdAlert.id}\` | APIkey: \`${thresholdAlert.APIkey}\` | FieldID: \`${thresholdAlert.fieldID}\` | Username: \`${thresholdAlert.username}\` | Min: \`${thresholdAlert.thresholdMin}\` | Max: \`${thresholdAlert.thresholdMax}\`\n`;
+                output += `Alert ID: \`${thresholdAlert.id}\` | APIkey: \`${thresholdAlert.apiKey}\` | FieldID: \`${thresholdAlert.fieldID}\` | Username: \`${thresholdAlert.username}\` | Min: \`${thresholdAlert.thresholdMin}\` | Max: \`${thresholdAlert.thresholdMax}\`\n`;
             }
             return interaction.reply(output);
         }

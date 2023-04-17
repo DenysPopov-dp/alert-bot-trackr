@@ -5,6 +5,7 @@
 
 const { SlashCommandBuilder } = require('discord.js');
 const { ConnectionAlerts } = require ('../../db/database.js');
+const { addAPItoDB } = require ('../../utils/addAPItoDB.js');
 
 
 module.exports = {
@@ -31,7 +32,7 @@ module.exports = {
 
         try{
             const connectionAlert = await ConnectionAlerts.create({
-                APIkey: apiKey,
+                apiKey: apiKey,
                 fieldID: fieldID,
                 username: interaction.user.username,
                 setTime: time,
@@ -44,7 +45,7 @@ module.exports = {
         catch(error)
         {
             if (error.name === 'SequelizeUniqueConstraintError') {
-				return interaction.reply('That alert already exists. Delete previous alert and create a new one.');
+				return interaction.reply(`**Alert with API key: \`${apiKey}\` and field ID: \`${fieldID}\` already exists. Delete previous alert and create a new one.**`);
 			}
             else{
                 return interaction.reply('Something went wrong with adding a connection alert.');

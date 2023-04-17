@@ -5,5 +5,6 @@
     - threshold-based alert
     - connection alert
 
-add validation for creation of alerts (checking api and fields)
-also consider cases when processign alerts when field id does not exist or when api does not exist
+add validation for creation of alerts (checking api and fields) -> for now it validates api keys and field id only when processing alerts and fetching data
+
+-get rid of API table - > useless

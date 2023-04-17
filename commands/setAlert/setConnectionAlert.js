@@ -28,6 +28,10 @@ module.exports = {
 		const apiKey = interaction.options.getString('api');
         const fieldID = interaction.options.getInteger('field-id');
         const time = interaction.options.getNumber('time');
+        const guildID = String(interaction.guild.id);
+        const channelID = String(interaction.channel.id);
+        const username = interaction.user.username;
+        const userID = interaction.user.id;
 
         const api = await APIs.findOrCreate({
             where: {api:apiKey},
@@ -38,9 +42,12 @@ module.exports = {
             const connectionAlert = await ConnectionAlerts.create({
                 apiKey: apiKey,
                 fieldID: fieldID,
-                username: interaction.user.username,
                 setTime: time,
                 timeStamp: Math.floor(Date.now() / 1000), // current time in seconds
+                guildID: guildID,
+                channelID: channelID,
+                username: username,
+                userID: userID,
             });
 
             return interaction.reply(`Connection alert with an id of \`${connectionAlert.id}\` has been set for \`${time}\` seconds.`);

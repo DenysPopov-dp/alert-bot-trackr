@@ -24,6 +24,10 @@ module.exports = {
 	async execute(interaction) {
 		const message = interaction.options.getString('message');
         const time = interaction.options.getNumber('time');
+        const guildID = interaction.guild.id;
+        const channelID = interaction.channel.id;
+        const username = interaction.user.username;
+        const userID = interaction.user.id;
 
         try{
             const timeAlert = await TimeAlerts.create({
@@ -31,6 +35,10 @@ module.exports = {
                 message: message,
                 setTime: time,
                 timeStamp: Math.floor(Date.now() / 1000), // current time in seconds
+                guildID: guildID,
+                channelID: channelID,
+                username: username,
+                userID: userID,
             });
 
             return interaction.reply(`time alert with an id of \`${timeAlert.id}\` has been set for \`${time}\` seconds with a message: \`${message}\`.`);

@@ -26,9 +26,12 @@ const TimeAlerts = sequelize.define('TimeAlerts', {
 		autoIncrement: true,
 	  },
 	username: Sequelize.STRING,
+	userID: Sequelize.STRING,
 	message: Sequelize.TEXT,
 	setTime: Sequelize.INTEGER, //time in seconds that user set
 	timeStamp: Sequelize.DOUBLE, //time stamp of when the alert was set or last reminder was sent
+	guildID: Sequelize.STRING,
+	channelID: Sequelize.STRING,
 });
 
 const ThresholdAlerts = sequelize.define('ThresholdAlerts', {
@@ -37,20 +40,13 @@ const ThresholdAlerts = sequelize.define('ThresholdAlerts', {
 		primaryKey: true,
 		autoIncrement: true,
 	},
-	// apiKey: {
-	// 	type: Sequelize.STRING,
-	// 	allowNull: false,
-	// 	// references: {
-	// 	//   model: 'APIs',
-	// 	//   key: 'api',
-	// 	//   onDelete: 'CASCADE',
-	// 	// },
-	// },
+	username: Sequelize.STRING,
+	userID: Sequelize.STRING,
 	fieldID: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
 	},
-	username: Sequelize.STRING,
+	interactionID: Sequelize.INTEGER,
 	thresholdMin: Sequelize.DOUBLE,
 	thresholdMax: Sequelize.DOUBLE,
 	totalValues: {
@@ -58,6 +54,8 @@ const ThresholdAlerts = sequelize.define('ThresholdAlerts', {
 		defaultValue: 0,
 		allowNull: false,
 	},
+	guildID: Sequelize.STRING,
+	channelID: Sequelize.STRING,
 	
 },
 {
@@ -76,27 +74,21 @@ const ConnectionAlerts = sequelize.define('ConnectionAlerts', {
 		primaryKey: true,
 		autoIncrement: true,
 	},
-	// apiKey: {
-	// 	type: Sequelize.STRING,
-	// 	allowNull: false,
-	// 	// references: {
-	// 	//   model: 'APIs',
-	// 	//   key: 'api',
-	// 	//   onDelete: 'CASCADE',
-	// 	// },
-	// },
+	username: Sequelize.STRING,
+	userID: Sequelize.STRING,
 	fieldID: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
 	},
-	username: Sequelize.STRING,
-	setTime: Sequelize.INTEGER, //user-set period of time when values should come in, or time to wait before a device is consedered disconnected
-	timeStamp: Sequelize.DOUBLE, //time stamp of when the alert was set or last reminder was sent
+	setTime: Sequelize.INTEGER, //user-set period of time when values should come in, or time to wait before a device is consedered disconnected (in seconds)
+	timeStamp: Sequelize.DOUBLE, //time stamp of when the alert was set or last reminder was sent (in seconds)
 	totalValues: {
 		type: Sequelize.INTEGER,
 		defaultValue: 0,
 		allowNull: false,
 	},
+	guildID: Sequelize.STRING,
+	channelID: Sequelize.STRING,
 	
 },
 {

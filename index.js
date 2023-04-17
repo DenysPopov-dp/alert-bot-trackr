@@ -3,6 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
+const{ alertLogic } = require('./alert-logic.js');
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -43,8 +44,12 @@ for (const file of eventFiles) {
 // Log in to Discord with your client's token
 client.login(token);
 
-// Define the interval time (15 seconds)
-const intervalTime = 5000;
+module.exports = client;
 
-// Set the interval to execute the function every 15 seconds
-setInterval( ()=>{console.log("interval trigger uuwuu")}, intervalTime);
+// Define the interval time (1 second)
+const intervalTime = 1000;
+
+// Set the interval to execute the function every 1 seconds
+setInterval( alertLogic, intervalTime);
+
+

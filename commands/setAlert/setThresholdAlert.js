@@ -33,6 +33,10 @@ module.exports = {
         const fieldID = interaction.options.getInteger('field-id');
         const thresholdMin = interaction.options.getNumber('threshold-min');
         const thresholdMax = interaction.options.getNumber('threshold-max');
+        const guildID = interaction.guild.id;
+        const channelID = interaction.channel.id;
+        const username = interaction.user.username;
+        const userID = interaction.user.id;
 
         const api = await APIs.findOrCreate({
             where: {api:apiKey},
@@ -43,9 +47,12 @@ module.exports = {
             const thresholdAlert = await ThresholdAlerts.create({
                 apiKey: apiKey,
                 fieldID: fieldID,
-                username: interaction.user.username,
                 thresholdMin: thresholdMin,
                 thresholdMax: thresholdMax,
+                guildID: guildID,
+                channelID: channelID,
+                username: username,
+                userID: userID,
             });
 
             return interaction.reply(`threshold alert with an id of \`${thresholdAlert.id}\`, \`${thresholdAlert.thresholdMin}\` min and \`${thresholdAlert.thresholdMax}\` max has been set.`);

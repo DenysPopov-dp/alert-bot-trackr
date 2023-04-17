@@ -1,6 +1,9 @@
 {
-	"token": "MTA5Njg4MDM2NjU0OTIwNTAyMw.GxC8o9.S7VeAsLjTbhCzVXYt5FwAtel_xv7oCK4f3FeaM",
+	"token": "MTA5Njg4MDM2NjU0OTIwNTAyMw.Gg_KtG.x5D0d5ds9i66Y8mI3hgd2UUlC-U0krYhUpi0II",
 	"clientId": "1096880366549205023",
-	"guildId": "1096921642267058236",
-	"main": "index.js"
+	"guildId": "1060292402163744798",
+	"main": "index.js",
+	"API_ENDPOINT": "http://wryneck.cs.umanitoba.ca/api/values/",
+	"limit": 100,
+	"order": "asc"
 }
